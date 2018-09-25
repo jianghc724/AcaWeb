@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <title></title>
+</head>
+<body>
+<div id="wrap">
+    <header></header>
+
+    <div class="theme" id="theme"></div>
+
+    <hr/>
+    <div id="mainbody"></div>
+
+</div>
+
+<script type="text/template" id="tpl-header">
+    <img class="header-img" src="/img/logo.jpg" />
+</script>
+
+<script type="text/template" id="tpl-theme">
+
+</script>
+
+<script type="text/template" id="tpl-mainbody">
+
+</script>
+
+<script type="text/template" id="tpl-footer">
+
+</script>
+
+<script src="/3rd/jquery.js"></script>
+<script src="/3rd/swig.js"></script>
+<script src="/js/weixin_lib.js"></script>
+<script src="/js/base.js"></script>
+
+<script>
+    var locals = {};
+    var render = function () {
+        $('header').html(swig.render($('#tpl-header').html(), {locals: locals}));
+        $('#theme').html(swig.render($('#tpl-theme').html(), {locals: locals}));
+        $('#mainbody').html(swig.render($('#tpl-mainbody').html(), {locals: locals}));
+    };
+    $(function () {
+        swig.setDefaultTZOffset(new Date().getTimezoneOffset());
+        render();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,unique=True,verbose_name=('用户'))
+    phone = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
+    major = models.CharField(max_length=10)
+    grade = models.CharField(max_length=10)
+    sex = models.CharField(max_length=2)
+    sightsing = models.IntegerField()
+    othersightsing = models.CharField(max_length=100, blank=True)
+    theory = models.IntegerField()
+    instrument = models.BooleanField(default=False)
+    instrumentKind = models.CharField(max_length=100, blank=True)
+    bbox = models.BooleanField(default=False)
+    bboxAbility = models.CharField(max_length=100, blank=True)
+    record = models.BooleanField(default=False)
+    recordAbility = models.CharField(max_length=100, blank=True)
+    compose = models.BooleanField(default=False)
+    composeAbility = models.CharField(max_length=100, blank=True)
+    midi = models.BooleanField(default=False)
+    midiAbility = models.CharField(max_length=100, blank=True)
+    writing = models.BooleanField(default=False)
+    movie = models.BooleanField(default=False)
+    camera = models.BooleanField(default=False)
+    photoshop = models.BooleanField(default=False)
+    otherAbility = models.CharField(max_length=100, blank=True)
+    schoolUnion = models.BooleanField(default=False)
+    majorUnion = models.BooleanField(default=False)
+    otherClub = models.BooleanField(default=False)
+    otherWork = models.CharField(max_length=100, blank=True)
+    xuanchuan = models.BooleanField(default=False)
+    caiwu = models.BooleanField(default=False)
+    wailian = models.BooleanField(default=False)
+    xueyuan = models.BooleanField(default=False)
+    fileUrl = models.CharField(max_length=100)
+    userStatus = models.BooleanField(default=False)

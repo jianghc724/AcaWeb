@@ -18,4 +18,6 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^api/u/', include('doctor.urls')),
+    url(r'^', StaticFileView.as_view()),
 ]

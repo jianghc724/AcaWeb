@@ -11,21 +11,27 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import json
+import logging
+import urllib.parse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONFIGS = json.loads(open(os.path.join(BASE_DIR, 'configs.json')).read())
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jhm(@cb+^h4(#trhs^-8w!kk^t91%n@2)6r-xo@iwoy1(_$jfs'
+SECRET_KEY = CONFIGS['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = CONFIGS['DEBUG']
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,3 +129,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Site and URL
+SITE_DOMAIN = CONFIGS['SITE_DOMAIN'].rstrip('/')
+
+
+def get_url(path, params=None):
+    full_path = urllib.parse.urljoin(SITE_DOMAIN, path)
+    if params:
+        return full_path + ('&' if urllib.parse.urlparse(full_path).query else '?') + urllib.parse.urlencode(params)
+    else:
+        return full_path
+
+
+# Logging configurations
+logging.basicConfig(
+    format='%(levelname)-7s [%(asctime)s] %(module)s.%(funcName)s:%(lineno)d  %(message)s',
+    level=logging.DEBUG if DEBUG else logging.WARNING,
+)
+
+MEDIA_ROOT = 'media/'
+MEDIA_URL = '/media/'
+
+EMAIL_HOST = CONFIGS['EMAIL_HOST']
+EMAIL_PORT = CONFIGS['EMAIL_PORT']
+EMAIL_HOST_USER = CONFIGS['EMAIL_USER']
+EMAIL_HOST_PASSWORD = CONFIGS['EMAIL_PASS']
+EMAIL_USE_TLS = False
+EMAIL_FROM = CONFIGS['EMAIL']

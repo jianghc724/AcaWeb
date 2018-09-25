@@ -6,5 +6,9 @@
   "DB_PASS": "",
   "DB_HOST": "127.0.0.1",
   "DB_PORT": "3306",
+  "EMAIL_HOST": "",
+  "EMAIL_PORT": "25",
+  "EMAIL_USER": "email",
+  "EMAIL_PASS": "",
   "SITE_DOMAIN": "http://your.domain"
 }

@@ -35,3 +35,15 @@ class UncompleteError(BaseError):
 
     def __init__(self, msg):
         super(UncompleteError, self).__init__(4, msg)
+
+
+class UserStatusError(BaseError):
+
+    def __init__(self, msg):
+        super(UncompleteError, self).__init__(5, msg)
+
+
+class QueryError(BaseError):
+
+    def __init__(self, msg):
+        super(UncompleteError, self).__init__(6, msg)

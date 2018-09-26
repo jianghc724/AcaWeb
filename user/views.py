@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import requests
 import json
 import html
+import os
 # Create your views here.
 
 
@@ -47,7 +48,7 @@ class UserLogin(APIView):
 
 
 class UserLogout(APIView):
-        def get(self):
+    def get(self):
         pass
 
     def post(self):
@@ -100,6 +101,10 @@ class FormEdit(APIView):
             'wailian': p.wailian,
             'xueyuan': p.xueyuan,
             'fileUrl': p.fileUrl,
+            'firstNoon': p.firstNoon,
+            'firstNight': p.firstNight,
+            'secondNoon': p.secondNoon,
+            'secondNight': p.secondNight,
             'userStatus': p.userStatus,
         }
 
@@ -111,7 +116,8 @@ class FormEdit(APIView):
             'bboxAbility','record','recordAbility','compose','composeAbility',
             'midi','midiAbility','writing','movie','camera','photoshop',
             'otherAbility','schoolUnion','majorUnion','otherClub','otherWork',
-            'xuanchuan','caiwu','wailian','xueyuan','fileUrl')
+            'xuanchuan','caiwu','wailian','xueyuan','firstNoon','firstNight',
+            'secondNoon','secondNight')
         info = self.input
         p = UserProfile.objects.get(user=u)
         p.update(phone=info['phone'],name=info['name'],major=info['major'],
@@ -127,7 +133,10 @@ class FormEdit(APIView):
             schoolUnion=info['schoolUnion'],majorUnion=info['majorUnion'],
             otherClub=info['otherClub'],otherWork=info['otherWork'],
             xuanchuan=info['xuanchuan'],caiwu=info['caiwu'],
-            wailian=info['wailian'],xueyuan=info['xueyuan'],fileUrl=info['fileUrl'])
+            wailian=info['wailian'],xueyuan=info['xueyuan'],
+            firstNoon=info['firstNoon'],firstNight=info['firstNight'],
+            secondNoon=info['secondNoon'],secondNight=info['secondNight'])
+        p.save()
 
 
 class UploadFile(APIView):
@@ -135,4 +144,16 @@ class UploadFile(APIView):
         pass
 
     def post(self):
-        pass
+        f = self.request.FILES.get("file", None)
+        u = self.request.user
+        i = u.username
+        if not f:
+            raise FileError('No file to upload')
+        destination = open(os.path.join(MEDIA_ROOT, i, f.name), 'wb+')
+        for chunk in f.chunks():
+            destination.write(chunk)
+        destination.close()
+        p = UserProfile.objects.get(user=u)
+        _p = os.path.join(i, f.name)
+        p.update(fileUrl=_p)
+        p.save()

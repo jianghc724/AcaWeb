@@ -47,3 +47,9 @@ class QueryError(BaseError):
 
     def __init__(self, msg):
         super(UncompleteError, self).__init__(6, msg)
+
+
+class FileError(BaseError):
+
+    def __init__(self, msg):
+        super(FileError, self).__init__(7, msg)

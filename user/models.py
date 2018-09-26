@@ -38,4 +38,8 @@ class UserProfile(models.Model):
     wailian = models.BooleanField(default=False)
     xueyuan = models.BooleanField(default=False)
     fileUrl = models.CharField(max_length=100)
+    firstNoon = models.BooleanField(default=False)
+    firstNight = models.BooleanField(default=False)
+    secondNoon = models.BooleanField(default=False)
+    secondNight = models.BooleanField(default=False)
     userStatus = models.BooleanField(default=False)

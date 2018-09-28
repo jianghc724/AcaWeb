@@ -87,49 +87,49 @@
 <script src="/js/base_admin.js"></script>
 
 <script>
-var locals = {};
-var renderTemplate = function (name) {
-    $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
-};
-var render = function () {
-    renderTemplate('nav-title');
-    renderTemplate('nav-li');
-    renderTemplate('nav-li-right');
-    renderTemplate('content');
-    renderTemplate('footer');
-};
-$(function () {
-    swig.setDefaultTZOffset(new Date().getTimezoneOffset());
-    render();
-    $('#loginnow').attr('disabled', true);
-    function showError(message, dom){
-        $('#alert').addClass('alert alert-danger');
-        $('#alert').text(message);
-        dom.focus();
-    }
-    api.get('/api/u/login', {}, function (data) {
-        window.location.href = '/u/activity';
-    }, function () {
-        $('#loginnow').attr('disabled', false);
-        api.form($('#form-login'), function (data) {
-            if (urlParam.next) {
-                window.location.href = urlParam.next;
-            } else {
-                window.location.href = '/u/activity';
-            }
-        }, function (errno, errmsg, e) {
-            var hint = errmsg;
-            if (e) {
-                hint += ": " + e;
-            }
-            showError(hint, $(window));
-        }, function (form) {
-            $('#loginnow').attr('disabled', true);
+    var locals = {};
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
+    var render = function () {
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
+    };
+    $(function () {
+        swig.setDefaultTZOffset(new Date().getTimezoneOffset());
+        render();
+        $('#loginnow').attr('disabled', true);
+        function showError(message, dom){
+            $('#alert').addClass('alert alert-danger');
+            $('#alert').text(message);
+            dom.focus();
+        }
+        api.get('/api/u/login', {}, function (data) {
+            window.location.href = '/u/activity';
         }, function () {
             $('#loginnow').attr('disabled', false);
+            api.form($('#form-login'), function (data) {
+                if (urlParam.next) {
+                    window.location.href = urlParam.next;
+                } else {
+                    window.location.href = '/u/activity';
+                }
+            }, function (errno, errmsg, e) {
+                var hint = errmsg;
+                if (e) {
+                    hint += ": " + e;
+                }
+                showError(hint, $(window));
+            }, function (form) {
+                $('#loginnow').attr('disabled', true);
+            }, function () {
+                $('#loginnow').attr('disabled', false);
+            });
         });
     });
-});
 </script>
 </body>
 </html>

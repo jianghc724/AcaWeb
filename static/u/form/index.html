@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #content {
+            padding-top: 80px;
+        }
+    </style>
+    <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" />
+
+    <title>注册</title>
 </head>
 <body>
-<div id="wrap">
-    <header></header>
+<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="cursor:default" id="nav-title"></a>
+        </div>
 
-    <div class="theme" id="theme"></div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="nav-li"></ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-li-right"></ul>
+        </div>
+    </div>
+</header>
 
-    <hr/>
-    <div id="mainbody"></div>
+<div id="content"></div>
 
-</div>
+<footer class="bs-footer" role="contentinfo">
+    <hr>
+    <div class="container" id="footer" style="text-align: center"></div>
+</footer>
 
-<script type="text/template" id="tpl-header">
-    <img class="header-img" src="/img/logo.jpg" />
+<script type="text/template" id="tpl-nav-title">
+    <img src="/img/aca.png" height="30px"/>阿卡面试
 </script>
 
-<script type="text/template" id="tpl-theme">
+<script type="text/template" id="tpl-nav-li">
 
 </script>
 
-<script type="text/template" id="tpl-mainbody">
+<script type="text/template" id="tpl-nav-li-right">
+
+</script>
+
+<script type="text/template" id="tpl-content">
 
 </script>
 
@@ -34,15 +60,22 @@
 </script>
 
 <script src="/3rd/jquery.js"></script>
+<script src="/3rd/bs/js/bootstrap.min.js"></script>
 <script src="/3rd/swig.js"></script>
 <script src="/js/base.js"></script>
+<script src="/js/base_admin.js"></script>
 
 <script>
     var locals = {};
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
     var render = function () {
-        $('header').html(swig.render($('#tpl-header').html(), {locals: locals}));
-        $('#theme').html(swig.render($('#tpl-theme').html(), {locals: locals}));
-        $('#mainbody').html(swig.render($('#tpl-mainbody').html(), {locals: locals}));
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
     };
     $(function () {
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());

@@ -25,7 +25,7 @@
 
 </script>
 
-<script type="text/template" id="tpl-mainbody">
+<script type="text/template" id="tpl-content">
 
 </script>
 
@@ -34,15 +34,22 @@
 </script>
 
 <script src="/3rd/jquery.js"></script>
+<script src="/3rd/bs/js/bootstrap.min.js"></script>
 <script src="/3rd/swig.js"></script>
 <script src="/js/base.js"></script>
+<script src="/js/base_admin.js"></script>
 
 <script>
     var locals = {};
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
     var render = function () {
-        $('header').html(swig.render($('#tpl-header').html(), {locals: locals}));
-        $('#theme').html(swig.render($('#tpl-theme').html(), {locals: locals}));
-        $('#mainbody').html(swig.render($('#tpl-mainbody').html(), {locals: locals}));
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
     };
     $(function () {
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());

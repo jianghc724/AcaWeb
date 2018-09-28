@@ -17,7 +17,18 @@ class UserRegister(APIView):
         pass
 
     def post(self):
-        pass
+        self.check_input('username', 'password1', 'password2', 'email')
+        info = self.input
+        if info['password1'] != info['password2']:
+            raise LogicError('Password not the same')
+        _u = User.objects.filter(username=info['username'])
+        if _u:
+            raise LogicError('Username used')
+        u = User()
+        u.username = info['username']
+        u.set_password(info['password1'])
+        u.email = info['email']
+        u.save()
 
 
 class UserActivation(APIView):

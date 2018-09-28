@@ -1,32 +1,111 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #content {
+            padding-top: 80px;
+        }
+    </style>
+    <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" />
+
+    <title>注册</title>
 </head>
 <body>
-<div id="wrap">
-    <header></header>
+<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="cursor:default" id="nav-title"></a>
+        </div>
 
-    <div class="theme" id="theme"></div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="nav-li"></ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-li-right"></ul>
+        </div>
+    </div>
+</header>
 
-    <hr/>
-    <div id="mainbody"></div>
+<div id="content"></div>
 
-</div>
+<footer class="bs-footer" role="contentinfo">
+    <hr>
+    <div class="container" id="footer" style="text-align: center"></div>
+</footer>
 
-<script type="text/template" id="tpl-header">
-    <img class="header-img" src="/img/logo.jpg" />
+<script type="text/template" id="tpl-nav-title">
+    <img src="/img/aca.png" height="30px"/>阿卡面试
 </script>
 
-<script type="text/template" id="tpl-theme">
+<script type="text/template" id="tpl-nav-li">
 
 </script>
 
-<script type="text/template" id="tpl-mainbody">
+<script type="text/template" id="tpl-nav-li-right">
 
+</script>
+
+<script type="text/template" id="tpl-content">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        {% if status == 0 or status == 1 %}
+        <div class="container" id="container-loading">
+            <img src="/img/loading.gif"><span id="loading-msg">正在载入...</span>
+        </div>
+        {% elif status == 2 %}
+        <div class="container" id="container-result">
+            <span id="result-msg">成功！</span>
+                <br/><br/>
+            <a href="/u/login" class="btn btn-default">回到登录界面</a>
+        </div>
+        {% else %}
+        <div class="pageheader">
+            <h1 class="lead">用户注册</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <div id="alert"></div>
+            <form class="form-horizontal" role="form" method="post" action="/api/u/register" id="question-form">
+                <div class="section-group">
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">请输入用户名/Please input username</label>
+                        <div class="col-sm-8">
+                            <input type="text" maxlength="20" name="username" class="form-control" id="input-username" autofocus  required>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">请输入密码/Please input password</label>
+                        <div class="col-sm-8">
+                            <input type="password" maxlength="20" name="password1" class="form-control" id="input-password1" required>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">请确认密码/Please confirm password</label>
+                        <div class="col-sm-8">
+                            <input type="password" maxlength="20" name="password2" class="form-control" id="input-password2" required>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">请输入邮箱/Please input email</label>
+                        <div class="col-sm-8">
+                            <input type="text" maxlength="100" name="email" class="form-control" id="input-email" required>
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-6">
+                    <button type="button" onclick="save();" class="btn btn-primary" id="publishBtn">提交/Submit</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 </script>
 
 <script type="text/template" id="tpl-footer">
@@ -34,20 +113,79 @@
 </script>
 
 <script src="/3rd/jquery.js"></script>
+<script src="/3rd/bs/js/bootstrap.min.js"></script>
 <script src="/3rd/swig.js"></script>
 <script src="/js/base.js"></script>
+<script src="/js/base_admin.js"></script>
 
 <script>
-    var locals = {};
+    var locals = {
+        status: -1,
+        now: new Date(),
+        processResult: '',
+        user_status: -1,
+    };
+    function showError(message, dom){
+        $('#alert').addClass('alert alert-danger');
+        $('#alert').text(message);
+        dom.focus();
+    }
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
     var render = function () {
-        $('header').html(swig.render($('#tpl-header').html(), {locals: locals}));
-        $('#theme').html(swig.render($('#tpl-theme').html(), {locals: locals}));
-        $('#mainbody').html(swig.render($('#tpl-mainbody').html(), {locals: locals}));
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
     };
     $(function () {
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
     });
+    var save= function () {
+        var data = {};
+        var flag = false;
+        var e_flag = true;
+        var form = $('#question-form');
+        $.each(form.serializeArray(), function (i, input) {
+            if (flag) {
+                return;
+            }
+            if (input.value == ''){
+                alert("请完成所有必填项");
+                flag = true;
+                return;
+            }
+            data[input.name] = input.value;
+        });
+        if (flag) {
+            return;
+        }
+        data.status = 1;
+        if (!locals.form) {
+            locals.form = {};
+        } else {
+            data.id = locals.form.id;
+        }
+        updateObj(locals.form, data);
+        locals.status = 1;
+        locals.processResult = '';
+        render();
+        api.post(form.attr('action'), data, function (id) {
+            locals.form.id = id;
+        }, function (errno, errmsg, e) {
+            var hint = errmsg;
+            if (e) {
+                hint += ": " + e;
+            }
+            showError(hint, $(window));
+        }, function () {
+            locals.status = 2;
+            render();
+        });
+    };
 </script>
 </body>
 </html>

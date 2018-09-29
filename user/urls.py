@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^form/?$', FormEdit.as_view()),
     url(r'^file/?$', UploadFile.as_view()),
     url(r'^user/?$', GetUser.as_view()),
+    url(r'^check/?$', GetFileStatus.as_view()),
 ]

@@ -119,7 +119,7 @@
                 locals.user_id = data;
                 render();
             }, dftFail);
-            api.get('/api/u/user', {}, function (data) {
+            api.get('/api/u/check', {}, function (data) {
                 if (data != '') {
                     locals.status == '成功/Success';
                 } else {

@@ -70,11 +70,11 @@
 
         <div class="panel panel-default">
             <div id="alert"></div>
-            <form class="form-horizontal" role="form" method="post" action="/api/u/file" id="question-form">
+            <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="/api/u/file" id="question-form">
                 <div class="section-group">
                     <label for="input-name" class="col-sm-4">音频上传/Upload your solo here</label>
                     <div class="col-sm-8">
-                        <input type="file" name="file" />
+                        <input type="file" name="file"/>
                         <br/>
                         <input type="submit" value="提交/upload"/>
                     </div>
@@ -122,55 +122,6 @@
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
     });
-    var save= function () {
-        var data = {};
-        var flag = false;
-        var e_flag = true;
-        var form = $('#question-form');
-        $.each(form.serializeArray(), function (i, input) {
-            if (flag) {
-                return;
-            }
-            if (input.value == ''){
-                alert("请完成所有必填项");
-                flag = true;
-                return;
-            }
-            data[input.name] = input.value;
-        });
-        if (flag) {
-            return;
-        }
-        data.status = 1;
-        if (!locals.form) {
-            locals.form = {};
-        } else {
-            data.id = locals.form.id;
-        }
-        updateObj(locals.form, data);
-        locals.status = 1;
-        locals.processResult = '';
-        render();
-        api.post(form.attr('action'), data, function (id) {
-            locals.form.id = id;
-        }, function (errno, errmsg, e) {
-            var hint = errmsg;
-            if (e) {
-                hint += ": " + e;
-            }
-            locals.processResult = hint;
-            locals.status = 3;
-        }, function () {
-            if (locals.status == 3)
-            {
-                locals.status = -1;
-            } else {
-                locals.status = 2;
-            }
-            render();
-            showError(locals.processResult, $(window));
-        });
-    };
 </script>
 </body>
 </html>

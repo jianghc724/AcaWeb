@@ -4,6 +4,7 @@ from codex.baseview import APIView
 from user.models import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from AcaWeb.settings import *
 
 import requests
 import json
@@ -150,7 +151,9 @@ class UploadFile(APIView):
         i = u.username
         if not f:
             raise FileError('No file to upload')
-        destination = open(os.path.join(MEDIA_ROOT, i, f.name), 'wb+')
+        _i = os.path.join(MEDIA_ROOT, i)
+        os.mkdir(_i)
+        destination = open(os.path.join(_i, f.name), 'wb+')
         for chunk in f.chunks():
             destination.write(chunk)
         destination.close()

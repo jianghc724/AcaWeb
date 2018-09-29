@@ -9,9 +9,8 @@
         }
     </style>
     <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="/css/list.css" />
 
-    <title>注册</title>
+    <title>活动信息</title>
 </head>
 <body>
 <header class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -52,7 +51,38 @@
 </script>
 
 <script type="text/template" id="tpl-content">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        <div class="pageheader">
+            <h1 class="lead">活动列表/Activity List</h1>
+        </div>
 
+        <div class="panel panel-default">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>活动信息/Info</th>
+                    <th>截止时间/Deadline</th>
+                    <th>操作/Operation</th>
+                </tr>
+                </thead>
+                <tbody id="tbody-activities">
+                <tr id="act">
+                    <td class="td-info">
+                        阿卡社秋季学期第一轮面试/First Round Audition
+                    </td>
+                    <td class="td-finish-time">
+                        10月1日 23点59分/11.59 p.m., Oct 1st
+                    </td>
+                    <td class="td-operations">
+                        <a href="/u/form?id={{ user_id }}" target="_blank">
+                            <span class="glyphicon glyphicon-check">上传音频/Upload</span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </script>
 
 <script type="text/template" id="tpl-footer">
@@ -80,6 +110,12 @@
     $(function () {
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
+        loginRequired(function () {
+            api.get('/api/u/user', {}, function (data) {
+                locals.user_id = data;
+                render();
+            }, dftFail);
+        });
     });
 </script>
 </body>

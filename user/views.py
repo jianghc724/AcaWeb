@@ -39,6 +39,17 @@ class UserActivation(APIView):
         pass
 
 
+class GetUser(APIView):
+    def get(self):
+        if self.request.user.is_authenticated:
+            return self.request.user.id
+        else:
+            raise UserStatusError("You haven't log in")
+
+    def post(self):
+        pass
+
+
 class UserLogin(APIView):
     def get(self):
         if self.request.user.is_authenticated:
@@ -77,7 +88,7 @@ class FormEdit(APIView):
         if p:
             p = UserProfile.objects.get(user=u)
         else:
-            p = UserProfile.objcets.create(user=u)
+            p = UserProfile.objects.create(user=u)
             p.save()
         result = {
             'phone': p.phone,
@@ -85,28 +96,10 @@ class FormEdit(APIView):
             'major': p.major,
             'grade': p.grade,
             'gender': p.gender,
-            'sightsing': p.sightsing,
-            'othersightsing': p.othersightsing,
-            'theory': p.theory,
-            'instrument': p.instrument,
-            'instrumentKind': p.instrumentKind,
-            'bbox': p.bbox,
-            'bboxAbility': p.bboxAbility,
-            'record': p.record,
-            'recordAbility': p.recordAbility,
-            'compose': p.compose,
-            'composeAbility': p.composeAbility,
-            'midi': p.midi,
-            'midiAbility': p.midiAbility,
             'writing': p.writing,
             'movie': p.movie,
             'camera': p.camera,
             'photoshop': p.photoshop,
-            'otherAbility': p.otherAbility,
-            'schoolUnion': p.schoolUnion,
-            'majorUnion': p.majorUnion,
-            'otherClub': p.otherClub,
-            'otherWork': p.otherWork,
             'xuanchuan': p.xuanchuan,
             'caiwu': p.caiwu,
             'wailian': p.wailian,
@@ -122,31 +115,28 @@ class FormEdit(APIView):
 
     def post(self):
         u = self.request.user
-        self.check_input('phone','name','major','grade','gender','sightsing',
-            'othersightsing','theory','instrument','instrumentKind','bbox',
-            'bboxAbility','record','recordAbility','compose','composeAbility',
-            'midi','midiAbility','writing','movie','camera','photoshop',
-            'otherAbility','schoolUnion','majorUnion','otherClub','otherWork',
-            'xuanchuan','caiwu','wailian','xueyuan','firstNoon','firstNight',
-            'secondNoon','secondNight')
+        self.check_input('phone','name','major','grade','gender','writing',
+            'movie','camera','photoshop','xuanchuan','caiwu','wailian',
+            'xueyuan','firstNoon','firstNight','secondNoon','secondNight')
         info = self.input
         p = UserProfile.objects.get(user=u)
-        p.update(phone=info['phone'],name=info['name'],major=info['major'],
-            grade=info['grade'],gender=info['gender'],sightsing=info['sightsing'],
-            othersightsing=info['othersightsing'],theory=info['theory'],
-            instrument=info['instrument'],instrumentKind=info['instrumentKind'],
-            bbox=info['bbox'],bboxAbility=info['bboxAbility'],
-            record=info['record'],recordAbility=info['recordAbility'],
-            compose=info['compose'],composeAbility=info['composeAbility'],
-            midi=info['midi'],midiAbility=info['midiAbility'],
-            writing=info['writing'],movie=info['movie'],camera=info['camera'],
-            photoshop=info['photoshop'],otherAbility=info['otherAbility'],
-            schoolUnion=info['schoolUnion'],majorUnion=info['majorUnion'],
-            otherClub=info['otherClub'],otherWork=info['otherWork'],
-            xuanchuan=info['xuanchuan'],caiwu=info['caiwu'],
-            wailian=info['wailian'],xueyuan=info['xueyuan'],
-            firstNoon=info['firstNoon'],firstNight=info['firstNight'],
-            secondNoon=info['secondNoon'],secondNight=info['secondNight'])
+        p.phone=info['phone']
+        p.name=info['name']
+        p.major=info['major']
+        p.grade=info['grade']
+        p.gender=info['gender']
+        p.writing=info['writing']
+        p.movie=info['movie']
+        p.camera=info['camera']
+        p.photoshop=info['photoshop']
+        p.xuanchuan=info['xuanchuan']
+        p.caiwu=info['caiwu']
+        p.wailian=info['wailian']
+        p.xueyuan=info['xueyuan']
+        p.firstNoon=info['firstNoon']
+        p.firstNight=info['firstNight']
+        p.secondNoon=info['secondNoon']
+        p.secondNight=info['secondNight']
         p.save()
 
 
@@ -166,5 +156,5 @@ class UploadFile(APIView):
         destination.close()
         p = UserProfile.objects.get(user=u)
         _p = os.path.join(i, f.name)
-        p.update(fileUrl=_p)
+        p.fileUrl=_p
         p.save()

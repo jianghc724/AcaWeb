@@ -11,7 +11,7 @@
     <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/register.css" />
 
-    <title>注册</title>
+    <title>信息填写</title>
 </head>
 <body>
 <header class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -44,15 +44,264 @@
 </script>
 
 <script type="text/template" id="tpl-nav-li">
-
+    <li class="active"><a class="btn-link" href="/u/activity">活动列表</a></li>
 </script>
 
 <script type="text/template" id="tpl-nav-li-right">
-
+    <li><a href="javascript:;" onclick="logout()" >登出</a></li>
 </script>
 
 <script type="text/template" id="tpl-content">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        {% if status == 0 or status == 1 %}
+        <div class="container" id="container-loading">
+            <img src="/img/loading.gif"><span id="loading-msg">正在载入...</span>
+        </div>
+        {% elif status == 2 %}
+        <div class="container" id="container-result">
+            <span id="result-msg">成功！</span>
+                <br/><br/>
+            <a href="/u/file?id={{user.user_id}}" class="btn btn-default">前往上传音频/Click here to head to Upload solo</a>
+        </div>
+        {% else %}
+        <div class="pageheader">
+            <h1 class="lead">信息填写/Info Form</h1>
+        </div>
 
+        <div class="panel panel-default">
+            <div id="alert"></div>
+            <form class="form-horizontal" role="form" method="post" action="/api/u/form" id="question-form">
+                <div class="section-group">
+                    <label for="input-name" class="col-sm-12">基本信息/Basic Info</label>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">姓名/Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" maxlength="50" name="name" class="form-control" id="input-name" autofocus  required>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">性别/Gender</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="gender" autofocus value="男" checked>男/Male
+                            <input type="radio" name="gender" autofocus value="女">女/Female
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">专业/Major</label>
+                        <div class="col-sm-8">
+                            <input type="text" maxlength="50" name="major" class="form-control" id="input-major" required>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">年级/Grade</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="grade" autofocus value="大一" checked>大一/Freshman
+                            <input type="radio" name="grade" autofocus value="大二">大二/Sophomore
+                            <input type="radio" name="grade" autofocus value="大三">大三/Junior
+                            <input type="radio" name="grade" autofocus value="大四">大四/Senior
+                            <input type="radio" name="grade" autofocus value="硕士">硕士/Graduate for Master
+                            <input type="radio" name="grade" autofocus value="博士">博士/Graduate for Ph.D
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">手机号/Phone number</label>
+                        <div class="col-sm-8">
+                            <input type="text" maxlength="20" name="phone" class="form-control" id="input-phone" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-group">
+                    <label for="input-name" class="col-sm-12">第二轮面试档期调查/Time survey for second round audition</label>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-6"></th>
+                                <th class="col-sm-3">可以前来/Available</th>
+                                <th class="col-sm-3">无法前来/Not Available</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="1">
+                                <td class="td-firstNoon">
+                                    10/6 13:30-16:30
+                                </td>
+                                <td class="td-true">
+                                    <input type="radio" name="firstNoon" autofocus value="True">
+                                </td>
+                                <td class="td-false">
+                                    <input type="radio" name="firstNoon" autofocus value="False" checked>
+                                </td>
+                            </tr>
+                            <tr id="2">
+                                <td class="td-firstNight">
+                                    10/6 19:00-21:00
+                                </td>
+                                <td class="td-true">
+                                    <input type="radio" name="firstNight" autofocus value="True">
+                                </td>
+                                <td class="td-false">
+                                    <input type="radio" name="firstNight" autofocus value="False" checked>
+                                </td>
+                            </tr>
+                            <tr id="3">
+                                <td class="td-secondNoon">
+                                    10/7 13:30-16:30
+                                </td>
+                                <td class="td-true">
+                                    <input type="radio" name="secondNoon" autofocus value="True">
+                                </td>
+                                <td class="td-false">
+                                    <input type="radio" name="secondNoon" autofocus value="False" checked>
+                                </td>
+                            </tr>
+                            <tr id="4">
+                                <td class="td-secondNight">
+                                    10/7 19:00-21:00
+                                </td>
+                                <td class="td-true">
+                                    <input type="radio" name="secondNight" autofocus value="True">
+                                </td>
+                                <td class="td-false">
+                                    <input type="radio" name="secondNight" autofocus value="False" checked>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section-group">
+                    <label for="input-name" class="col-sm-12">社工调查</label>
+                    <label for="input-name" class="col-sm-8">学生阿卡贝拉清唱社是一个年轻的社团，我们很需要一个给力的团队来支持它的发展。如果您有社工方面的才华，那么无论您之前是否有相关的经验，我们都希望您能加入我们的社工组。</label>
+                    <label for="input-name" class="col-sm-12">For overseas student, you can skip this part.</label>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">社工类特长</label>
+                        <div class="col-sm-8">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-6"></th>
+                                        <th class="col-sm-3">是</th>
+                                        <th class="col-sm-3">否</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="1">
+                                        <td class="td-writng">
+                                            新闻稿写作
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="writing" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="writing" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="2">
+                                        <td class="td-camera">
+                                            摄影摄像
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="camera" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="camera" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="3">
+                                        <td class="td-movie">
+                                            视频制作
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="movie" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="movie" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="4">
+                                        <td class="td-photoshop">
+                                            Photoshop等平面设计软件
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="photoshop" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="photoshop" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group" class="question">
+                        <label for="input-name" class="col-sm-4">社工部门意愿</label>
+                        <div class="col-sm-8">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-6"></th>
+                                        <th class="col-sm-3">是</th>
+                                        <th class="col-sm-3">否</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="1">
+                                        <td class="td-xuanchuan">
+                                            宣传部
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="xuanchuan" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="xuanchuan" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="2">
+                                        <td class="td-wailian">
+                                            外联部
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="wailian" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="wailian" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="3">
+                                        <td class="td-caiwu">
+                                            财务员
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="caiwu" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="caiwu" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                    <tr id="4">
+                                        <td class="td-xuanchuan">
+                                            学员部负责人
+                                        </td>
+                                        <td class="td-true">
+                                            <input type="radio" name="xueyuan" autofocus value="True">
+                                        </td>
+                                        <td class="td-false">
+                                            <input type="radio" name="xueyuan" autofocus value="False" checked>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-group">
+                    <div class="col-sm-offset-4 col-sm-6">
+                        <button type="button" onclick="save();" class="btn btn-primary" id="publishBtn">提交/Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 </script>
 
 <script type="text/template" id="tpl-footer">
@@ -66,7 +315,18 @@
 <script src="/js/base_admin.js"></script>
 
 <script>
-    var locals = {};
+    var locals = {
+        status: -1,
+        now: new Date(),
+        processResult: '',
+        user_status: -1,
+    };
+    function showError(message, dom){
+        $('#alert').addClass('alert alert-danger');
+        $('#alert').text(message);
+        console.log(message);
+        dom.focus();
+    }
     var renderTemplate = function (name) {
         $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
     };
@@ -80,7 +340,62 @@
     $(function () {
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
+        loginRequired(function () {
+            api.get('/api/u/form', {}, function (data) {
+                locals.form = data;
+                render();
+            }, dftFail);
+        });
     });
+    var save= function () {
+        var data = {};
+        var flag = false;
+        var e_flag = true;
+        var form = $('#question-form');
+        $.each(form.serializeArray(), function (i, input) {
+            if (flag) {
+                return;
+            }
+            if (input.value == ''){
+                alert("请完成所有必填项");
+                flag = true;
+                return;
+            }
+            data[input.name] = input.value;
+        });
+        if (flag) {
+            return;
+        }
+        data.status = 1;
+        if (!locals.form) {
+            locals.form = {};
+        } else {
+            data.id = locals.form.id;
+        }
+        updateObj(locals.form, data);
+        locals.status = 1;
+        locals.processResult = '';
+        render();
+        api.post(form.attr('action'), data, function (id) {
+            locals.form.id = id;
+        }, function (errno, errmsg, e) {
+            var hint = errmsg;
+            if (e) {
+                hint += ": " + e;
+            }
+            locals.processResult = hint;
+            locals.status = 3;
+        }, function () {
+            if (locals.status == 3)
+            {
+                locals.status = -1;
+            } else {
+                locals.status = 2;
+            }
+            render();
+            showError(locals.processResult, $(window));
+        });
+    };
 </script>
 </body>
 </html>

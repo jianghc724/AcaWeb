@@ -51,6 +51,23 @@ class GetUser(APIView):
         pass
 
 
+class GetFileStatus(APIView):
+    def get(self):
+        if self.request.user.is_authenticated:
+            p = UserProfile.objects.filter(user=u)
+            if p:
+                p = UserProfile.objects.get(user=u)
+            else:
+                p = UserProfile.objects.create(user=u)
+                p.save()
+            return p.fileUrl
+        else:
+            raise UserStatusError("You haven't log in")
+
+    def post(self):
+        pass
+
+
 class UserLogin(APIView):
     def get(self):
         if self.request.user.is_authenticated:

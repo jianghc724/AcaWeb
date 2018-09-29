@@ -62,6 +62,7 @@
                 <tr>
                     <th>活动信息/Info</th>
                     <th>截止时间/Deadline</th>
+                    <th>是否已上传/Upload status</th>
                     <th>操作/Operation</th>
                 </tr>
                 </thead>
@@ -72,6 +73,9 @@
                     </td>
                     <td class="td-finish-time">
                         10月1日 23点59分/11.59 p.m., Oct 1st
+                    </td>
+                    <td class="td-status">
+                        {{status}}
                     </td>
                     <td class="td-operations">
                         <a href="/u/form?id={{ user_id }}" target="_blank">
@@ -113,6 +117,14 @@
         loginRequired(function () {
             api.get('/api/u/user', {}, function (data) {
                 locals.user_id = data;
+                render();
+            }, dftFail);
+            api.get('/api/u/user', {}, function (data) {
+                if (data != '') {
+                    locals.status == '成功/Success';
+                } else {
+                    locals.status == '失败/Failure';
+                }
                 render();
             }, dftFail);
         });

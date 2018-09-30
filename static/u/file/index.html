@@ -61,7 +61,7 @@
         <div class="container" id="container-result">
             <span id="result-msg">成功！</span>
                 <br/><br/>
-            <a href="/u/activity" class="btn btn-default">返回活动列表/Back to Activity</a>
+            <a href="/u/activity" class="btn btn-default">回到活动列表</a>
         </div>
         {% else %}
         <div class="pageheader">
@@ -70,7 +70,7 @@
 
         <div class="panel panel-default">
             <div id="alert"></div>
-            <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="/api/u/file" id="question-form">
+            <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="/api/u/file" id="question-form" onsubmit="return getResult();">
                 <div class="section-group">
                     <label for="input-name" class="col-sm-4">音频上传/Upload your solo here</label>
                     <div class="col-sm-8">
@@ -90,6 +90,7 @@
 </script>
 
 <script src="/3rd/jquery.js"></script>
+<script src="/3rd/jquery.form.js"></script>
 <script src="/3rd/bs/js/bootstrap.min.js"></script>
 <script src="/3rd/swig.js"></script>
 <script src="/js/base.js"></script>
@@ -122,6 +123,17 @@
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
     });
+    function getResult(){
+        $('#question-form').ajaxSubmit(function(message){
+            if (message['code'] == 0){
+                locals.status = 2;
+            } else {
+                alert("上传发生了一些问题:" + message["msg"]);
+            }
+            render();
+        })
+        return false;
+    }
 </script>
 </body>
 </html>

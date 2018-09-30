@@ -121,9 +121,9 @@
             }, dftFail);
             api.get('/api/u/check', {}, function (data) {
                 if (data != '') {
-                    locals.status == '成功/Success';
+                    locals.status = '成功/Success';
                 } else {
-                    locals.status == '失败/Failure';
+                    locals.status = '失败/Failure';
                 }
                 render();
             }, dftFail);

@@ -54,6 +54,7 @@ class GetUser(APIView):
 class GetFileStatus(APIView):
     def get(self):
         if self.request.user.is_authenticated:
+            u = self.request.user
             p = UserProfile.objects.filter(user=u)
             if p:
                 p = UserProfile.objects.get(user=u)

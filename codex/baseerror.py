@@ -40,7 +40,7 @@ class UncompleteError(BaseError):
 class UserStatusError(BaseError):
 
     def __init__(self, msg):
-        super(UncompleteError, self).__init__(5, msg)
+        super(UserStatusError, self).__init__(5, msg)
 
 
 class QueryError(BaseError):

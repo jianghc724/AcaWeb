@@ -10,6 +10,7 @@ import requests
 import json
 import html
 import os
+import shutil
 # Create your views here.
 
 
@@ -130,6 +131,7 @@ class FormEdit(APIView):
             'secondNight': p.secondNight,
             'userStatus': p.userStatus,
         }
+        return result
 
 
     def post(self):
@@ -170,12 +172,16 @@ class UploadFile(APIView):
         if not f:
             raise FileError('No file to upload')
         _i = os.path.join(MEDIA_ROOT, i)
+        p = UserProfile.objects.get(user=u)
+        if os.path.exists(_i):
+            shutil.rmtree(_i)
+            p.fileUrl = ''
+            p.save()
         os.mkdir(_i)
         destination = open(os.path.join(_i, f.name), 'wb+')
         for chunk in f.chunks():
             destination.write(chunk)
         destination.close()
-        p = UserProfile.objects.get(user=u)
         _p = os.path.join(i, f.name)
         p.fileUrl=_p
         p.save()

@@ -76,37 +76,37 @@
                     <div class="form-group" class="question">
                         <label for="input-name" class="col-sm-4">姓名/Name</label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="50" name="name" class="form-control" id="input-name" autofocus  required>
+                            <input type="text" maxlength="50" name="name" class="form-control" id="input-name" autofocus value="{{form.name}}" required>
                         </div>
                     </div>
                     <div class="form-group" class="question">
                         <label for="input-name" class="col-sm-4">性别/Gender</label>
                         <div class="col-sm-8">
-                            <input type="radio" name="gender" autofocus value="男" checked>男/Male
-                            <input type="radio" name="gender" autofocus value="女">女/Female
+                            <input type="radio" name="gender" id="gender-1" autofocus value="男">男/Male
+                            <input type="radio" name="gender" id="gender-2" autofocus value="女">女/Female
                         </div>
                     </div>
                     <div class="form-group" class="question">
                         <label for="input-name" class="col-sm-4">专业/Major</label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="50" name="major" class="form-control" id="input-major" required>
+                            <input type="text" maxlength="50" name="major" class="form-control" id="input-major" value="{{form.major}}" required>
                         </div>
                     </div>
                     <div class="form-group" class="question">
                         <label for="input-name" class="col-sm-4">年级/Grade</label>
                         <div class="col-sm-8">
-                            <input type="radio" name="grade" autofocus value="大一" checked>大一/Freshman
-                            <input type="radio" name="grade" autofocus value="大二">大二/Sophomore
-                            <input type="radio" name="grade" autofocus value="大三">大三/Junior
-                            <input type="radio" name="grade" autofocus value="大四">大四/Senior
-                            <input type="radio" name="grade" autofocus value="硕士">硕士/Graduate for Master
-                            <input type="radio" name="grade" autofocus value="博士">博士/Graduate for Ph.D
+                            <input type="radio" name="grade" id="grade-1" autofocus value="大一">大一/Freshman
+                            <input type="radio" name="grade" id="grade-2" autofocus value="大二">大二/Sophomore
+                            <input type="radio" name="grade" id="grade-3" autofocus value="大三">大三/Junior
+                            <input type="radio" name="grade" id="grade-4" autofocus value="大四">大四/Senior
+                            <input type="radio" name="grade" id="grade-5" autofocus value="硕士">硕士/Graduate for Master
+                            <input type="radio" name="grade" id="grade-6" autofocus value="博士">博士/Graduate for Ph.D
                         </div>
                     </div>
                     <div class="form-group" class="question">
                         <label for="input-name" class="col-sm-4">手机号/Phone number</label>
                         <div class="col-sm-8">
-                            <input type="text" maxlength="20" name="phone" class="form-control" id="input-phone" required>
+                            <input type="text" maxlength="20" name="phone" class="form-control" id="input-phone" value="{{form.phone}}" required>
                         </div>
                     </div>
                 </div>
@@ -126,10 +126,10 @@
                                     10/6 13:30-16:30
                                 </td>
                                 <td class="td-true">
-                                    <input type="radio" name="firstNoon" autofocus value="True">
+                                    <input type="radio" name="firstNoon" id="fnoon1" autofocus value="True">
                                 </td>
                                 <td class="td-false">
-                                    <input type="radio" name="firstNoon" autofocus value="False" checked>
+                                    <input type="radio" name="firstNoon" id="fnoon2" autofocus value="False">
                                 </td>
                             </tr>
                             <tr id="2">
@@ -137,10 +137,10 @@
                                     10/6 19:00-21:00
                                 </td>
                                 <td class="td-true">
-                                    <input type="radio" name="firstNight" autofocus value="True">
+                                    <input type="radio" name="firstNight" id="fnight1" autofocus value="True">
                                 </td>
                                 <td class="td-false">
-                                    <input type="radio" name="firstNight" autofocus value="False" checked>
+                                    <input type="radio" name="firstNight" id="fnight2" autofocus value="False">
                                 </td>
                             </tr>
                             <tr id="3">
@@ -148,10 +148,10 @@
                                     10/7 13:30-16:30
                                 </td>
                                 <td class="td-true">
-                                    <input type="radio" name="secondNoon" autofocus value="True">
+                                    <input type="radio" name="secondNoon" id="snoon1" autofocus value="True">
                                 </td>
                                 <td class="td-false">
-                                    <input type="radio" name="secondNoon" autofocus value="False" checked>
+                                    <input type="radio" name="secondNoon" id="snoon2" autofocus value="False">
                                 </td>
                             </tr>
                             <tr id="4">
@@ -159,10 +159,10 @@
                                     10/7 19:00-21:00
                                 </td>
                                 <td class="td-true">
-                                    <input type="radio" name="secondNight" autofocus value="True">
+                                    <input type="radio" name="secondNight" id="snight1" autofocus value="True">
                                 </td>
                                 <td class="td-false">
-                                    <input type="radio" name="secondNight" autofocus value="False" checked>
+                                    <input type="radio" name="secondNight" id="snight2" autofocus value="False">
                                 </td>
                             </tr>
                         </tbody>
@@ -189,10 +189,10 @@
                                             新闻稿写作
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="writing" autofocus value="True">
+                                            <input type="radio" name="writing" id="writing-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="writing" autofocus value="False" checked>
+                                            <input type="radio" name="writing" id="writing-2" autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="2">
@@ -200,10 +200,10 @@
                                             摄影摄像
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="camera" autofocus value="True">
+                                            <input type="radio" name="camera" id="camera-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="camera" autofocus value="False" checked>
+                                            <input type="radio" name="camera" id="camera-2" autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="3">
@@ -211,10 +211,10 @@
                                             视频制作
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="movie" autofocus value="True">
+                                            <input type="radio" name="movie" id="movie-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="movie" autofocus value="False" checked>
+                                            <input type="radio" name="movie" id="movie-2" autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="4">
@@ -222,10 +222,10 @@
                                             Photoshop等平面设计软件
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="photoshop" autofocus value="True">
+                                            <input type="radio" name="photoshop" id="photoshop-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="photoshop" autofocus value="False" checked>
+                                            <input type="radio" name="photoshop" id="photoshop-2" autofocus value="False" checked>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -249,10 +249,10 @@
                                             宣传部
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="xuanchuan" autofocus value="True">
+                                            <input type="radio" name="xuanchuan" id="xuanchuan-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="xuanchuan" autofocus value="False" checked>
+                                            <input type="radio" name="xuanchuan" id='xuanchuan-2' autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="2">
@@ -260,10 +260,10 @@
                                             外联部
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="wailian" autofocus value="True">
+                                            <input type="radio" name="wailian" id="wailian-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="wailian" autofocus value="False" checked>
+                                            <input type="radio" name="wailian" id="wailian-2" autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="3">
@@ -271,10 +271,10 @@
                                             财务员
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="caiwu" autofocus value="True">
+                                            <input type="radio" name="caiwu" id="caiwu-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="caiwu" autofocus value="False" checked>
+                                            <input type="radio" name="caiwu" id="caiwu-2" autofocus value="False">
                                         </td>
                                     </tr>
                                     <tr id="4">
@@ -282,10 +282,10 @@
                                             学员部负责人
                                         </td>
                                         <td class="td-true">
-                                            <input type="radio" name="xueyuan" autofocus value="True">
+                                            <input type="radio" name="xueyuan" id="xueyuan-1" autofocus value="True">
                                         </td>
                                         <td class="td-false">
-                                            <input type="radio" name="xueyuan" autofocus value="False" checked>
+                                            <input type="radio" name="xueyuan" id="xueyuan-2" autofocus value="False">
                                         </td>
                                     </tr>
                                 </tbody>
@@ -341,13 +341,109 @@
         swig.setDefaultTZOffset(new Date().getTimezoneOffset());
         render();
         loginRequired(function () {
-            api.get('/api/u/form', {}, function (data) {
-                locals.form = data;
-                render();
-            }, dftFail);
             api.get('/api/u/user', {}, function (data) {
                 locals.user_id = data;
                 render();
+            }, dftFail);
+            api.get('/api/u/form', {}, function (data) {
+                locals.form = data;
+                render();
+                if (!locals.form['gender']) {
+                    locals.form['gender'] == ''
+                }
+                if (locals.form['gender'] == '女') {
+                    document.getElementById('gender-2').checked = true;
+                } else {
+                    document.getElementById('gender-1').checked = true;
+                }
+                if (!locals.form['grade']) {
+                    locals.form['grade'] == ''
+                }
+                if (locals.form['grade'] == '大二') {
+                    document.getElementById('grade-2').checked = true;
+                } else if (locals.form['grade'] == '大三') {
+                    document.getElementById('grade-3').checked = true;
+                } else if (locals.form['grade'] == '大四') {
+                    document.getElementById('grade-4').checked = true;
+                } else if (locals.form['grade'] == '硕士') {
+                    document.getElementById('grade-5').checked = true;
+                } else if (locals.form['grade'] == '博士') {
+                    document.getElementById('grade-6').checked = true;
+                } else {
+                    document.getElementById('grade-1').checked = true;
+                }
+
+                if (locals.form['firstNoon']) {
+                    document.getElementById('fnoon1').checked = true;
+                } else {
+                    document.getElementById('fnoon2').checked = true;
+                }
+
+                if (locals.form['firstNight']) {
+                    document.getElementById('fnight1').checked = true;
+                } else {
+                    document.getElementById('fnight2').checked = true;
+                }
+
+                if (locals.form['secondNoon']) {
+                    document.getElementById('snoon1').checked = true;
+                } else {
+                    document.getElementById('snoon2').checked = true;
+                }
+
+                if (locals.form['secondNight']) {
+                    document.getElementById('snight1').checked = true;
+                } else {
+                    document.getElementById('snight2').checked = true;
+                }
+
+                if (locals.form['writing']) {
+                    document.getElementById('writing-1').checked = true;
+                } else {
+                    document.getElementById('writing-2').checked = true;
+                }
+
+                if (locals.form['camera']) {
+                    document.getElementById('camera-1').checked = true;
+                } else {
+                    document.getElementById('camera-2').checked = true;
+                }
+
+                if (locals.form['movie']) {
+                    document.getElementById('movie-1').checked = true;
+                } else {
+                    document.getElementById('movie-2').checked = true;
+                }
+
+                if (locals.form['photoshop']) {
+                    document.getElementById('photoshop-1').checked = true;
+                } else {
+                    document.getElementById('photoshop-2').checked = true;
+                }
+
+                if (locals.form['xuanchuan']) {
+                    document.getElementById('xuanchuan-1').checked = true;
+                } else {
+                    document.getElementById('xuanchuan-2').checked = true;
+                }
+
+                if (locals.form['caiwu']) {
+                    document.getElementById('caiwu-1').checked = true;
+                } else {
+                    document.getElementById('caiwu-2').checked = true;
+                }
+
+                if (locals.form['wailian']) {
+                    document.getElementById('wailian-1').checked = true;
+                } else {
+                    document.getElementById('wailian-2').checked = true;
+                }
+
+                if (locals.form['xueyuan']) {
+                    document.getElementById('xueyuan-1').checked = true;
+                } else {
+                    document.getElementById('xueyuan-2').checked = true;
+                }
             }, dftFail);
         });
     });

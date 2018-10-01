@@ -59,9 +59,9 @@
         </div>
         {% elif status == 2 %}
         <div class="container" id="container-result">
-            <span id="result-msg">成功！</span>
+            <span id="result-msg">成功！/Success!</span>
                 <br/><br/>
-            <a href="/u/activity" class="btn btn-default">回到活动列表</a>
+            <a href="/u/activity" class="btn btn-default">回到活动列表/Back to activity list</a>
         </div>
         {% else %}
         <div class="pageheader">
@@ -128,7 +128,7 @@
             if (message['code'] == 0){
                 locals.status = 2;
             } else {
-                alert("上传发生了一些问题:" + message["msg"]);
+                alert("上传发生了一些问题，请把以下信息转发/Somthing wrong, please repost this into wechat group:" + message["msg"]);
             }
             render();
         })

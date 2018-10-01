@@ -11,6 +11,7 @@ import json
 import html
 import os
 import shutil
+import time
 # Create your views here.
 
 
@@ -170,13 +171,14 @@ class UploadFile(APIView):
         u = self.request.user
         i = u.username
         if not f:
-            raise FileError('No file to upload')
+            raise FileError('No file to upload, no need to repost. Just remember to choose the file and upload again')
         _i = os.path.join(MEDIA_ROOT, i)
         p = UserProfile.objects.get(user=u)
         if os.path.exists(_i):
             shutil.rmtree(_i)
             p.fileUrl = ''
             p.save()
+            time.sleep(0.5)
         os.mkdir(_i)
         destination = open(os.path.join(_i, f.name), 'wb+')
         for chunk in f.chunks():

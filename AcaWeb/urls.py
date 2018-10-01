@@ -18,7 +18,7 @@ from django.contrib import admin
 from AcaWeb.views import StaticFileView
 
 urlpatterns = [
-    url('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^api/u/', include('user.urls')),
     url(r'^', StaticFileView.as_view()),
 ]

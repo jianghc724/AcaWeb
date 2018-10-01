@@ -55,11 +55,11 @@
     <div class="container" xmlns="http://www.w3.org/1999/html">
         {% if status == 0 or status == 1 %}
         <div class="container" id="container-loading">
-            <img src="/img/loading.gif"><span id="loading-msg">正在载入...</span>
+            <img src="/img/loading.gif"><span id="loading-msg">正在载入.../Loading</span>
         </div>
         {% elif status == 2 %}
         <div class="container" id="container-result">
-            <span id="result-msg">成功！</span>
+            <span id="result-msg">成功！/Success!</span>
                 <br/><br/>
             <a href="/u/file?id={{user_id}}" class="btn btn-default">前往上传音频/Click here to head to Upload solo</a>
         </div>

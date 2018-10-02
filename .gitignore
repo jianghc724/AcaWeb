@@ -105,5 +105,8 @@ venv.bak/
 
 # json
 configs.json
+
+# others
 migrations/
 media/
+static/img/qrcode.jpg

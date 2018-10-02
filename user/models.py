@@ -25,3 +25,7 @@ class UserProfile(models.Model):
     secondNoon = models.BooleanField(default=False)
     secondNight = models.BooleanField(default=False)
     userStatus = models.BooleanField(default=False)
+    # 1 For Sop 2 For MS 3 For Alto 4 For CT 5 For Tenor 6 For Bar 7 For Bass 8 For VP
+    # 9 For Sop/Alto 10 For Alto/MS 11 For Bar/Bass 12 For Bass/Bar 13 For Bass/VP 14 For VP/Bass
+    part = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)

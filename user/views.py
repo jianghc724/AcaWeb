@@ -187,3 +187,19 @@ class UploadFile(APIView):
         _p = os.path.join(i, f.name)
         p.fileUrl=_p
         p.save()
+
+
+class GetStatus(APIView):
+    def get(self):
+        u = self.request.user
+        p = UserProfile.objects.get(user=u)
+        result = {
+            'status': p.userStatus,
+            'part': p.part,
+            'id': p.user_id,
+            'time': p.time,
+        }
+        return result
+
+    def post(self):
+        pass

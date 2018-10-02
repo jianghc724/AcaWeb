@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #content {
+            padding-top: 80px;
+        }
+    </style>
+    <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" />
+
+    <title>面试结果</title>
+</head>
+<body>
+<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="cursor:default" id="nav-title"></a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="nav-li"></ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-li-right"></ul>
+        </div>
+    </div>
+</header>
+
+<div id="content"></div>
+
+<footer class="bs-footer" role="contentinfo">
+    <hr>
+    <div class="container" id="footer" style="text-align: center"></div>
+</footer>
+
+<script type="text/template" id="tpl-nav-title">
+    <img src="/img/aca.png" height="30px"/>阿卡面试
+</script>
+
+<script type="text/template" id="tpl-nav-li">
+    <li class="active"><a class="btn-link" href="/u/activity">活动列表</a></li>
+</script>
+
+<script type="text/template" id="tpl-nav-li-right">
+    <li><a href="javascript:;" onclick="logout()" >登出</a></li>
+</script>
+
+<script type="text/template" id="tpl-content">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        {% if status == -1 %}
+        <div class="container" id="container-loading">
+            <img src="/img/loading.gif"><span id="loading-msg">正在载入.../Loading</span>
+        </div>
+        {% elif status == 1 %}
+        <div class="pageheader">
+            <h1 class="lead">第一轮面试结果公告/Result For First Round Audition</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <p style="text-indent:25px">我们非常高兴地通知你们成功地进入了第二轮面试。第二轮面试将于10/6与10/7的下午与晚上进行。</p>
+            <p style="text-indent:25px">本轮面试主要为便于各乐团及学员部选拔。如果您由于各方面原因不便于参加面试，请您及时联系阿卡社，我们将尽力解决。</p>
+            <p style="text-indent:25px">第二轮面试的主要内容为阿卡曲目的演唱。</p>
+            <p style="text-indent:25px">对于非VP声部，本次阿卡曲目为Pentatonix的《Can’t Help Falling In Love》以及The King’s Singer的《I’m Yours》。前者主要考察大家的和声能力，后者主要考察大家的节奏，因而两首歌都为必选曲目。《I’m Yours》不能选择Tenor声部，因为该声部为主唱声部。曲谱以及midi请点击以下链接下载：</p>
+            <p style="text-indent:25px"><a href="https://cloud.tsinghua.edu.cn/d/bbd48f5d0007499288b7/" target="_blank">https://cloud.tsinghua.edu.cn/d/bbd48f5d0007499288b7/</a></p>
+            <p style="text-indent:25px">请大家提前识谱！提前识谱！提前识谱！现场我们将会有现役阿卡社乐团成员与你们合作完成这两首阿卡曲。两首歌均可以在网易云音乐上找到原唱的版本。midi用Windows Media Player即可播放。</p>
+            <p style="text-indent:25px">对于不同声部，我们两首歌分别建议选择的声部为：</p>
+            <p style="text-indent:25px">女高：《Can’t Help Falling In Love》Kristin行+《I’m Yours》Soprano</p>
+            <p style="text-indent:25px">次女高：《Can’t Help Falling In Love》Kristin或Mitch行+《I’m Yours》Soprano或Alto</p>
+            <p style="text-indent:25px">女中：《Can’t Help Falling In Love》Mitch行+《I’m Yours》Alto</p>
+            <p style="text-indent:25px">假声男高：《Can’t Help Falling In Love》Mitch行或Kevin行+《I’m Yours》Alto</p>
+            <p style="text-indent:25px">男高：《Can’t Help Falling In Love》Kevin行+《I’m Yours》BaritoneI</p>
+            <p style="text-indent:25px">男中：《Can’t Help Falling In Love》Scott行+《I’m Yours》BaritoneI或BaritoneII</p>
+            <p style="text-indent:25px">男低：《Can’t Help Falling In Love》Avi行+《I’m Yours》Bass</p>
+            <p style="text-indent:25px">对于VP声部，我们将进行现场考察，无需特别准备。如果有其他演唱声部的分配，请也完成以上演唱声部。</p>
+            <p style="text-indent:25px">根据第一轮面试时您提交的音频，我们建议您的声部为：<b><font color="#ff0000">{{getPart(user.part)}}</b></font></p>
+            <p style="text-indent:25px">如果提及了两个声部，则表示我们认为两个声部都可以尝试，初步来看前者更好一些。当然以上分配仅供参考，可自由更换。</p>
+            <p style="text-indent:25px">同时请记住您的面试号为：<b><font color="#ff0000">{{user.id}}</font></b>，我们第二轮面试需要使用。</p>
+            <p style="text-indent:25px">根据您之前所之前填写的信息，您的面试时间段为：</p>
+            <p style="text-indent:25px"><b><font color="#ff0000">{{getAuditionTime(user.time)}}</font></b></p>
+            <p style="text-indent:25px">另外，我们有第二轮面试微信群供大家讨论，请扫码加入：</p>
+            <p style="text-indent:25px"><img src="/img/qrcode.jpg"/ height="300px"></p>
+
+            <p style="text-indent:25px">We are delighted to inform you that you have passed our first round audition!</p>
+            <p style="text-indent:25px">The second round will be acappella singing.</p>
+            <p style="text-indent:25px">For b-boxers, we will have a test at the second round audition and no extra preparation is needed. However, if you are also in other voice part, please also prepare acappella singing below.</p>
+            <p style="text-indent:25px">For others, you need to sing two acappella songs: Can’t Help Falling In Love and I’m Yours. Both of them are required. And Tenor in I'm Yours cannot be chosen because it is lead in this song. Please download midis and music score from the link below:</p>
+            <p style="text-indent:25px"><a href="https://cloud.tsinghua.edu.cn/d/bbd48f5d0007499288b7/" target="_blank">https://cloud.tsinghua.edu.cn/d/bbd48f5d0007499288b7/</a></p>
+            <p style="text-indent:25px">Please recognize the music score in advance. There will be members from our club to co-operate with you to complete the song on the scene of the audition. You can also find the original acappella version in Netease Cloud Music or just on Youtube. And midis can be played by Windows Media Player.</p>
+            <p style="text-indent:25px">For different voice parts, here are our suggestions in choosing voice parts for two songs:</p>
+            <p style="text-indent:25px">Soprano：《Can’t Help Falling In Love》Kristin+《I’m Yours》Soprano</p>
+            <p style="text-indent:25px">Mezzo Soprano：《Can’t Help Falling In Love》Kristin or Mitch+《I’m Yours》Soprano or Alto</p>
+            <p style="text-indent:25px">Alto：《Can’t Help Falling In Love》Mitch+《I’m Yours》Alto</p>
+            <p style="text-indent:25px">Counter Tenor：《Can’t Help Falling In Love》Mitch or Kevin+《I’m Yours》Alto</p>
+            <p style="text-indent:25px">Tenor：《Can’t Help Falling In Love》Kevin+《I’m Yours》BaritoneI</p>
+            <p style="text-indent:25px">Baritone：《Can’t Help Falling In Love》Scott+《I’m Yours》BaritoneI or BaritoneII</p>
+            <p style="text-indent:25px">Bass：《Can’t Help Falling In Love》Avi+《I’m Yours》Bass</p>
+
+            <p style="text-indent:25px">Our suggestion on you voice part according to your first round audition:<b><font color="#ff0000">{{getEnPart(user.part)}}</b></font></p>
+            <p style="text-indent:25px">If two parts mentioned, it means both of them are ok. Maybe the former one is better, you can just try both of them you choose. Also it is only our suggestion, so feel free to switch to another voice part.</p>
+            <p style="text-indent:25px">Also, please remember your number in audition:<b><font color="#ff0000">{{user.id}}</font></b>, which will be used in the second round.</p>
+            <p style="text-indent:25px">According to the form you filled in before, your time period for the second round audition:</p>
+            <p style="text-indent:25px"><b><font color="#ff0000">{{getEnAuditionTime(user.time)}}</font></b></p>
+            <p style="text-indent:25px">We also have a wechat group for second audition, please scan this qrcode to join it:</p>
+            <p style="text-indent:25px"><img src="/img/qrcode.jpg"/ height="300px"></p>
+
+        </div>
+        {% elif status == 0 %}
+        <div class="pageheader">
+            <h1 class="lead">第一轮面试结果公告/Result For First Round Audition</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <p style="text-indent:25px">很遗憾，在经过本轮面试后，您未能通过面试进入第二轮面试。</p>
+            <p style="text-indent:25px">未通过第一轮面试并不完全代表着您的演唱出现了问题，在我们审所有录音时，我们被今年的整体水平所震惊，大家都展现出了自己最好的一面。可是由于声部配比的关系，最终导致您没能通过这一轮面试。</p>
+            <p style="text-indent:25px">我们作为清华大学唯一一个民间合唱类社团，虽然十分希望能给对阿卡贝拉音乐有兴趣的所有同学提供接触阿卡贝拉音乐的机会，但是由于场地、人员及精力的限制，我们心有余而力不足。再次再度表示抱歉！</p>
+            <p style="text-indent:25px">本学期我们将会有“声诞夜”小型专场音乐会，这是大家能零距离与乐团接触的机会，希望到时还能见到大家，与大家一起探讨音乐，一起享受音乐的时光！具体信息我们会通过微信公众号@清华阿卡儿进行推送，敬请期待！</p>
+            <p style="text-indent:25px">由于学生阿卡贝拉清唱社是一支年轻的社团，我们的社工部门也是刚刚建立，很多方面做的还不够成熟，非常希望有兴趣的同学能加入我们的社工部门，一起来管理这支年轻的队伍，之前有填写社工意愿的同学我们后续会进行联系。</p>
+
+            <p style="text-indent:25px">First off, we regret to inform you that you didn’t get admitted to the singing trainings that are held once per week. There is a lot of competition in this year so this doesn’t mean you can’t sing well. The limited ratio of the voice parts is the main reason for that.</p>
+            <p style="text-indent:25px">Besides, we are not one of the “official” Art and Music clubs of Tsinghua. We have less funding, no professional singing teachers (only senior student members of our club), and a lot of restrictions for training new members. So as much as we want you in and make more people love and participate in creating acappella, please don’t be too sad if you are not in.</p>
+            <p style="text-indent:25px">In this semester, we will hold a small concert around the Christmas Eve, which is an opportunity to communicate with vocal bands in our club. We are looking forward to meeting you in that concert. And the information about this concert will be published through our wechat public account, which is called 清华阿卡儿.</p>
+
+        </div>
+        {% endif %}
+    </div>
+</script>
+
+<script type="text/template" id="tpl-footer">
+
+</script>
+
+<script src="/3rd/jquery.js"></script>
+<script src="/3rd/bs/js/bootstrap.min.js"></script>
+<script src="/3rd/swig.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/base_admin.js"></script>
+
+<script>
+    var locals = {
+        now: new Date(),
+        status: -1,
+    };
+    function getPart(p){
+        if (p == 1) {
+            return "女高";
+        } else if (p == 2) {
+            return "次女高";
+        } else if (p == 3) {
+            return "女中";
+        } else if (p == 4) {
+            return "假声男高";
+        } else if (p == 5) {
+            return "男高";
+        } else if (p == 6) {
+            return "男中";
+        } else if (p == 7) {
+            return "男低";
+        } else if (p == 8) {
+            return "VP";
+        } else if (p == 9) {
+            return "女高/女中";
+        } else if (p == 10) {
+            return "女中/次女高";
+        } else if (p == 11) {
+            return "男中/男低";
+        } else if (p == 12) {
+            return "男低/男中";
+        } else if (p == 13) {
+            return "男低/VP";
+        } else if (p == 14) {
+            return "VP/男低";
+        }
+    }
+    function getEnPart(p){
+        if (p == 1) {
+            return "Soprano";
+        } else if (p == 2) {
+            return "Mezzo Soprano";
+        } else if (p == 3) {
+            return "Alto";
+        } else if (p == 4) {
+            return "Counter Tenor";
+        } else if (p == 5) {
+            return "Tenor";
+        } else if (p == 6) {
+            return "Baritone";
+        } else if (p == 7) {
+            return "Bass";
+        } else if (p == 8) {
+            return "VP";
+        } else if (p == 9) {
+            return "Soprano/Alto";
+        } else if (p == 10) {
+            return "Alto/Mezzo Soprano";
+        } else if (p == 11) {
+            return "Baritone/Bass";
+        } else if (p == 12) {
+            return "Bass/Baritone";
+        } else if (p == 13) {
+            return "Bass/VP";
+        } else if (p == 14) {
+            return "VP/Bass";
+        }
+    }
+    function getAuditionTime(t){
+        if (t == 1) {
+            return "10月6日 13：30-16：30 C楼320";
+        } else if (t == 2) {
+            return "10月6日 19：00-21：00 C楼320";
+        } else if (t == 3) {
+            return "10月7日 13：30-16：30 C楼320";
+        } else if (t == 4) {
+            return "10月7日 19：00-21：00 C楼320";
+        } else if (t == 5) {
+            return "您没有填写任何时间，请在10月6日或10月7日13：30-16：30与19：00-21：00期间前来C楼320即可，如有困难请及时声明。";
+        }
+    }
+    function getEnAuditionTime(t){
+        if (t == 1) {
+            return "Oct.6th 1.30p.m.-4.30p.m. RM320, C Building";
+        } else if (t == 2) {
+            return "Oct.6th 7p.m.-9p.m. RM320, C Building";
+        } else if (t == 3) {
+            return "Oct.7th 1.30p.m.-4.30p.m. RM320, C Building";
+        } else if (t == 4) {
+            return "Oct.7th 7p.m.-9p.m. RM320, C Building";
+        } else if (t == 5) {
+            return "You haven't chosen any time. Just come to RM320, C Building on Oct.6th or Oct.7th in 1.30p.m.-4.30p.m. or 7p.mm. or 9p.m.. If you could not make it, please tell us in advance.";
+        }
+    }
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
+    var render = function () {
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
+    };
+    $(function () {
+        swig.setDefaultTZOffset(new Date().getTimezoneOffset());
+        render();
+        loginRequired(function () {
+            api.get('/api/u/status', {}, function (data) {
+                locals.user = data;
+                locals.status = data['status']
+                render();
+            }, dftFail);
+
+        });
+    });
+
+</script>
+</body>
+</html>

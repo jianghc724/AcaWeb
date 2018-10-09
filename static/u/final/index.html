@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #content {
+            padding-top: 80px;
+        }
+    </style>
+    <link href="/3rd/bs/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" />
+
+    <title>面试结果</title>
+</head>
+<body>
+<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="cursor:default" id="nav-title"></a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" id="nav-li"></ul>
+            <ul class="nav navbar-nav navbar-right" id="nav-li-right"></ul>
+        </div>
+    </div>
+</header>
+
+<div id="content"></div>
+
+<footer class="bs-footer" role="contentinfo">
+    <hr>
+    <div class="container" id="footer" style="text-align: center"></div>
+</footer>
+
+<script type="text/template" id="tpl-nav-title">
+    <img src="/img/aca.png" height="30px"/>阿卡面试
+</script>
+
+<script type="text/template" id="tpl-nav-li">
+    <li class="active"><a class="btn-link" href="/u/activity">活动列表</a></li>
+</script>
+
+<script type="text/template" id="tpl-nav-li-right">
+    <li><a href="javascript:;" onclick="logout()" >登出</a></li>
+</script>
+
+<script type="text/template" id="tpl-content">
+    <div class="container" xmlns="http://www.w3.org/1999/html">
+        {% if status == -1 %}
+        <div class="container" id="container-loading">
+            <img src="/img/loading.gif"><span id="loading-msg">正在载入.../Loading</span>
+        </div>
+        {% elif status == 2 %}
+        <div class="pageheader">
+            <h1 class="lead">第二轮面试结果公告/Result For Second Round Audition</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <p>新一届学员部成员们：</p>
+            <p style="text-indent:25px">大家好！我是学生阿卡贝拉清唱社社长江昊琛，首先恭喜诸位通过艰难的两轮面试选拔，在103位参与面试的同学中脱颖而出。你们也是第一届经由线上面试进入学员部的成员，再次祝贺你们！</p>
+            <p style="text-indent:25px">清华大学学生阿卡贝拉清唱社成立于2012年11月，从最初C楼三轮车旁的一个小乐团到今天活跃会员数达100余人的社团，从最初的零基础招新到现在浓缩至20余人的学员部，六年间我们经历了许多许多，但不变的是阿卡贝拉文化的传承。综合表演部是我们社团发展的核心力量，从这里走出了Voix、uniC、偷排练、G#、Nightwalker五个乐团以及Maj9一个组合，希望大家能向新乐团的建立而努力。</p>
+            <p style="text-indent:25px">大学期间我围观过很多阿卡贝拉团体的排练，无论整体水平如何，我在所有乐团都能感受到如音乐一般和谐的氛围，希望大家在今后的排练中也能如此。我们的排练时间很短，阿卡社也会尽力给大家安排丰富的内容，会对每一次大家的参与有所期待。自2018年春季学期起我们开始采用考勤制度，如需请假，事假请提前三天告知我或者学员部部长谢启娴，病假请提前一天告知，<b><font color="#ff0000">连续两次无故缺席的同学视为自动退出本学期学员部</font></b>，请大家务必注意，本学期排练计划从第四周开始，持续至第13或14周，期中考试周可能会停排一次，视情况而定。不过请不要紧张，保持轻松的心情参与排练吧~</p>
+            <p style="text-indent:25px">请大家扫码加入微信群，我们之后的安排将会在微信群中通知~</p>
+            <p style="text-indent:25px"><img src="/img/second-qrcode.jpg"/ height="300px"></p>
+
+            <p style="text-indent:25px">Greetings! I am Jiang Haochen, the chairman of Tsinghua Student Acappella Club. First off, congratulations! You made it through the audition. </p>
+            <p style="text-indent:25px">THU Acappella was formed in Nov 2012. We grew from a handful of passionate singers singing in C-building to a club with more than 100 active members.</p>
+            <p style="text-indent:25px">Please scan the QR code above to get the further notice of our rehersal.</p>
+            <p style="text-indent:25px">See you!</p>
+            <p style="text-indent:25px"><img src="/img/second-qrcode.jpg"/ height="300px"></p>
+
+        </div>
+        {% elif status <= 1 %}
+        <div class="pageheader">
+            <h1 class="lead">第二轮面试结果公告/Result For Second Round Audition</h1>
+        </div>
+
+        <div class="panel panel-default">
+            <p style="text-indent:25px">很遗憾，在经过本轮面试后，您未能通过面试进入学员部。</p>
+            <p style="text-indent:25px">未通过本轮面试并不完全代表着您的演唱出现了问题，大家都展现出了自己最好的一面。可是由于声部配比的关系，最终导致您没能通过这一轮面试。</p>
+            <p style="text-indent:25px">我们作为清华大学唯一一个民间合唱类社团，虽然十分希望能给对阿卡贝拉音乐有兴趣的所有同学提供接触阿卡贝拉音乐的机会，但是由于场地、人员及精力的限制，我们心有余而力不足。再次再度表示抱歉！</p>
+            <p style="text-indent:25px">本学期我们将会有“声诞夜”小型专场音乐会，这是大家能零距离与乐团接触的机会，希望到时还能见到大家，与大家一起探讨音乐，一起享受音乐的时光！具体信息我们会通过微信公众号@清华阿卡儿进行推送，敬请期待！</p>
+            <p style="text-indent:25px">由于学生阿卡贝拉清唱社是一支年轻的社团，我们的社工部门也是刚刚建立，很多方面做的还不够成熟，非常希望有兴趣的同学能加入我们的社工部门，一起来管理这支年轻的队伍，之前有填写社工意愿的同学我们后续会进行联系。</p>
+
+            <p style="text-indent:25px">First off, we regret to inform you that you didn’t get admitted to the singing trainings that are held once per week. There is a lot of competition in this year so this doesn’t mean you can’t sing well. The limited ratio of the voice parts is the main reason for that.</p>
+            <p style="text-indent:25px">Besides, we are not one of the “official” Art and Music clubs of Tsinghua. We have less funding, no professional singing teachers (only senior student members of our club), and a lot of restrictions for training new members. So as much as we want you in and make more people love and participate in creating acappella, please don’t be too sad if you are not in.</p>
+            <p style="text-indent:25px">In this semester, we will hold a small concert around the Christmas Eve, which is an opportunity to communicate with vocal bands in our club. We are looking forward to meeting you in that concert. And the information about this concert will be published through our wechat public account, which is called 清华阿卡儿.</p>
+
+        </div>
+        {% endif %}
+    </div>
+</script>
+
+<script type="text/template" id="tpl-footer">
+
+</script>
+
+<script src="/3rd/jquery.js"></script>
+<script src="/3rd/bs/js/bootstrap.min.js"></script>
+<script src="/3rd/swig.js"></script>
+<script src="/js/base.js"></script>
+<script src="/js/base_admin.js"></script>
+
+<script>
+    var locals = {
+        now: new Date(),
+        status: -1,
+    };
+    var renderTemplate = function (name) {
+        $('#' + name).html(swig.render($('#tpl-' + name).html(), {locals: locals}));
+    };
+    var render = function () {
+        renderTemplate('nav-title');
+        renderTemplate('nav-li');
+        renderTemplate('nav-li-right');
+        renderTemplate('content');
+        renderTemplate('footer');
+    };
+    $(function () {
+        swig.setDefaultTZOffset(new Date().getTimezoneOffset());
+        render();
+        loginRequired(function () {
+            api.get('/api/u/status', {}, function (data) {
+                locals.user = data;
+                locals.status = data['status']
+                render();
+            }, dftFail);
+
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -110,3 +110,4 @@ configs.json
 migrations/
 media/
 static/img/qrcode.jpg
+static/img/second-qrcode.jpg

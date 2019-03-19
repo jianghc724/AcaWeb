@@ -62,7 +62,7 @@
                 <tr>
                     <th>活动信息/Info</th>
                     <th>截止时间/Deadline</th>
-                    <th>上传状态/Upload status</th>
+                    <th>状态/Status</th>
                     <th>操作/Operation</th>
                 </tr>
                 </thead>
@@ -103,15 +103,10 @@
                         3月10日 23点59分/11.59 p.m., Mar 10th, 2019
                     </td>
                     <td class="td-status">
-                        {{status}}
+                        已结束/Ended
                     </td>
                     <td class="td-operations">
-                        <a href="/u/form?id={{ user_id }}" target="_blank">
-                            <span class="glyphicon glyphicon-check">上传音频/Upload</span>
-                        </a>
-                        <a href="/u/result?id={{ user_id }}" target="_blank">
-                            <span class="glyphicon glyphicon-check">查看结果/Result</span>
-                        </a>
+                        无可用操作/No available operations
                     </td>
                 </tr>
                 <tr id="act">
@@ -122,10 +117,12 @@
                         3月16日 21点30分/9.30 p.m., Mar 16th, 2019
                     </td>
                     <td class="td-status">
-                        即将开始/About to start
+                        已结束/Ended
                     </td>
                     <td class="td-operations">
-                        无可用操作/No available operations
+                        <a href="/u/final?id={{ user_id }}" target="_blank">
+                            <span class="glyphicon glyphicon-check">查看结果/Result</span>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
